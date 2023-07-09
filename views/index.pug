@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title UPC Lookup
+  body
+    h1 Enter a UPC
+    form(action="/lookup" method="POST")
+      input(type="text" name="upc" required)
+      button(type="submit") Lookup
