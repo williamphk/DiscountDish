@@ -7,3 +7,12 @@ html
     form(action="/lookup" method="POST")
       input(type="text" name="upc" required)
       button(type="submit") Lookup
+    
+    each item in groceryItems
+      div #{item}
+    
+    form(action="/generate-receipt" method="POST")
+      button(type="submit") Generate Receipt
+    
+    if receipt
+      div #{receipt}
