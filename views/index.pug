@@ -1,19 +1,23 @@
 doctype html
 html
   head
-    title UPC Lookup
+    link(rel="stylesheet" href="styles/styles.css")
+    script(src="scripts/script.js" defer) 
+    title Recipe for your refigreator 
   body
-    h1 Enter a UPC
-    form(action="/lookup" method="POST")
-      input(type="text" name="upc" value="00123456789012" required)
-      button(type="submit") Lookup
+    h1 Add a food
+    form(action="/add-grocery-item" method="POST")
+      input(type="text" name="title" placeholder="e.g. chicken")
+      button(type="submit") Add
     
     if groceryItems
       each item in groceryItems
         div #{item}
     
     form(action="/generate-recipe" method="POST")
-      button(type="submit") Generate Recipe
+      button(type="submit" class="recipe-btn") Generate Recipe
     
     if recipe
-      div #{recipe}
+      div(class="recipe")!= recipe
+    else
+      div(class="recipe") Loading
