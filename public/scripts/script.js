@@ -1,7 +1,6 @@
 const recipeBtn = document.querySelector(".recipe-btn");
-const recipe = document.querySelector(".recipe");
+const loading = document.querySelector(".loading");
 recipeBtn.addEventListener("click", () => {
-  console.log("clicked");
-  recipe.style.display = "block";
+  loading.style.display = "block";
   recipeBtn.style.display = "none";
 });

@@ -47,7 +47,7 @@ router.post("/generate-recipe", async (req, res) => {
 
     let recipe = result.data.choices[0].message.content;
     recipe = convertToHtml(recipe);
-    res.render("index", { groceryItems, recipe });
+    res.render("recipe", { recipe });
   } catch (error) {
     res.render("error", { error });
   }

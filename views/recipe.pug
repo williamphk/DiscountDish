@@ -1,0 +1,6 @@
+extend layout 
+
+block main-content
+  a(href="/") back
+  if recipe
+    div(class="recipe")!= recipe
