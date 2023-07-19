@@ -1,14 +1,16 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
+const Replicate = require("replicate");
 
 require("dotenv").config();
 
 let groceryItems = [];
 
-const apiKey = process.env.SECRET_KEY;
+const appId = process.env.ID;
+const appKey = process.env.KEY;
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   res.render("index", { groceryItems });
 });
 
@@ -30,30 +32,36 @@ router.post("/add-grocery-item", (req, res) => {
   res.render("index", { groceryItems });
 });
 
-router.post("/generate-receipt", async (req, res) => {
-  const formattedGroceryItems = groceryItems
-    .map((item) => `${item}`)
-    .join("\n");
-  const prompt = `Create a receipt for the following grocery items:\n${formattedGroceryItems}`;
+router.post("/generate-recipe", async (req, res) => {
+  const formattedGroceryItems = groceryItems.map((item) => `${item}`).join(",");
 
-  const response = await axios.post(
-    "https://api.openai.com/v1/chat/completions",
+  const replicate = new Replicate({
+    auth: process.env.REPLICATE_API_TOKEN,
+  });
+
+  let recipe = await replicate.run(
+    "a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
     {
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 150,
-      temperature: 0.7,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
+      input: {
+        prompt: `User: give me a recipe for ${formattedGroceryItems} . Assistant:`,
       },
+      max_length: "2000",
     }
   );
-  const receipt = await response.data;
-  console.log(receipt);
-  res.render("index", { receipt });
+
+  recipe = recipe.toString().replace(/, /g, " ");
+  console.log(recipe);
+  // const response = await axios.get(
+  //   `https://api.edamam.com/api/recipes/v2?type=public&q=${formattedGroceryItems}&app_id=${appId}&app_key=${appKey}&diet=balanced&cuisineType=Japanese&mealType=Dinner`
+  // );
+  // const result = await response.data;
+  // const ingredients = result.hits[0].recipe.ingredientLines;
+  // const recipeUri = result.hits[0].recipe.uri;
+
+  // response = await axios.get(
+  //   `https://api.edamam.com/api/recipes/v2/by-uri?type=public&uri=${recipeUri}&app_id=${appId}&app_key=${appKey}`
+  // );
+  res.render("index", { recipe });
 });
 
 module.exports = router;

@@ -5,14 +5,15 @@ html
   body
     h1 Enter a UPC
     form(action="/lookup" method="POST")
-      input(type="text" name="upc" required)
+      input(type="text" name="upc" value="00123456789012" required)
       button(type="submit") Lookup
     
-    each item in groceryItems
-      div #{item}
+    if groceryItems
+      each item in groceryItems
+        div #{item}
     
-    form(action="/generate-receipt" method="POST")
-      button(type="submit") Generate Receipt
+    form(action="/generate-recipe" method="POST")
+      button(type="submit") Generate Recipe
     
-    if receipt
-      div #{receipt}
+    if recipe
+      div #{recipe}
