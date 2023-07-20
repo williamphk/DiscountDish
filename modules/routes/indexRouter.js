@@ -17,7 +17,7 @@ router.post("/add-grocery-item", (req, res) => {
 
 router.post("/generate-recipe", async (req, res) => {
   const formattedGroceryItems = groceryItems.map((item) => `${item}`).join(",");
-
+  groceryItems = [];
   try {
     let result = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
@@ -47,7 +47,6 @@ router.post("/generate-recipe", async (req, res) => {
 
     let recipe = result.data.choices[0].message.content;
     recipe = convertToHtml(recipe);
-    groceryItems = [];
     res.render("recipe", { recipe });
   } catch (error) {
     res.render("error", { error });
