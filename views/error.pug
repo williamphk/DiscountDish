@@ -2,9 +2,7 @@ extend layout
 
 block main-content
   h2 Error
-  if errors
-    each error in errors
-      div #{error.msg}
-  else
-    You have inputted a incorrect item
+  each error in errors
+    div #{error.msg}
+  br
   a(href="/") Back

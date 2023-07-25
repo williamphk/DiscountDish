@@ -40,6 +40,12 @@ router.post("/add-grocery-item", validateIngredient, (req, res) => {
 });
 
 router.post("/generate-recipe", async (req, res) => {
+  if (groceryItems.length === 0) {
+    return res.render("error", {
+      errors: [{ msg: "Please add at least one grocery item." }],
+    });
+  }
+
   const formattedGroceryItems = groceryItems.map((item) => `${item}`).join(",");
   groceryItems = [];
   try {
@@ -73,7 +79,9 @@ router.post("/generate-recipe", async (req, res) => {
     recipe = convertToHtml(recipe);
     res.render("recipe", { recipe });
   } catch (error) {
-    res.render("error");
+    res.render("error", {
+      errors: [{ msg: "You have inputted an incorrect item." }],
+    });
   }
 });
 
@@ -98,9 +106,11 @@ function convertToHtml(recipeText) {
     .map((item) => `<li>${item.trim()}</li>`)
     .join("");
 
-  // Construct the final HTML.
   const html = `
-      <h2>${beforeIngredients.trim()}</h2>
+      <h2>${
+        beforeIngredients.trim().slice(6).charAt(0).toUpperCase() +
+        beforeIngredients.trim().slice(6).slice(1)
+      }</h2>
       <p><strong>Ingredients:</strong></p>
       <ul>
           ${ingredientsList}
