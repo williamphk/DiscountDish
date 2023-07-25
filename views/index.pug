@@ -1,9 +1,11 @@
 extend layout 
 
 block main-content 
-  h2 Add a food
   form(action="/add-grocery-item" method="POST")
-    input#autoCompleteInput(type="text" name="title" placeholder="e.g. chicken")
+    label(for="autoCompleteInput") 
+      h2 Add an ingredient:
+    br
+    input#autoCompleteInput(type="text" name="ingredient" placeholder="e.g. chicken")
     button(type="submit") Add
     div#autoCompleteResults
   

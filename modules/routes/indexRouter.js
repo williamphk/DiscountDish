@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
+const { body, validationResult } = require("express-validator");
 
 require("dotenv").config();
 
@@ -14,8 +15,27 @@ router.get("/how-to-use", async (req, res) => {
   res.render("how-to-use");
 });
 
-router.post("/add-grocery-item", (req, res) => {
-  groceryItems.push(req.body.title);
+const validateIngredient = [
+  body("ingredient")
+    .trim()
+    .escape()
+    .notEmpty()
+    .withMessage("Cannot be empty.")
+    .isLength({ max: 25 })
+    .withMessage("Cannot be longer than 25 characters.")
+    .matches(/^[a-zA-Z ]+$/)
+    .withMessage("Must only contain letters and spaces."),
+];
+
+router.post("/add-grocery-item", validateIngredient, (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    console.log(errors.array());
+    return res.render("error", { errors: errors.array() });
+  }
+
+  groceryItems.push(req.body.ingredient);
   res.render("index", { groceryItems });
 });
 

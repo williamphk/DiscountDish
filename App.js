@@ -15,4 +15,4 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 
-app.listen(80, () => console.log("Server started on port 80"));
+app.listen(3000, () => console.log("Server started on port 80"));
