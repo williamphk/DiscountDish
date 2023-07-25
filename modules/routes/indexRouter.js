@@ -10,6 +10,10 @@ router.get("/", async (req, res) => {
   res.render("index", { groceryItems });
 });
 
+router.get("/how-to-use", async (req, res) => {
+  res.render("how-to-use");
+});
+
 router.post("/add-grocery-item", (req, res) => {
   groceryItems.push(req.body.title);
   res.render("index", { groceryItems });
@@ -76,7 +80,7 @@ function convertToHtml(recipeText) {
 
   // Construct the final HTML.
   const html = `
-      <h1>${beforeIngredients.trim()}</h1>
+      <h2>${beforeIngredients.trim()}</h2>
       <p><strong>Ingredients:</strong></p>
       <ul>
           ${ingredientsList}

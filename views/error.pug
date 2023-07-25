@@ -1,8 +1,6 @@
-doctype html
-html
-  head
-    title UPC Lookup
-  body
-    h1 Error
-    p An error occurred: #{error.message}
-    a(href="/") Back
+extend layout 
+
+block main-content
+  h2 Error
+  p You have inputted a incorrect item
+  a(href="/") Back

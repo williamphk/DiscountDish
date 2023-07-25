@@ -1,23 +1,29 @@
 //Loading
 const recipeBtn = document.querySelector(".recipe-btn");
 const loading = document.querySelector(".loading");
-recipeBtn.addEventListener("click", () => {
-  loading.style.display = "block";
-  recipeBtn.style.display = "none";
-});
+if (recipeBtn) {
+  recipeBtn.addEventListener("click", () => {
+    loading.style.display = "block";
+    recipeBtn.style.display = "none";
+  });
+}
 
 //AutoComplete
 document
   .getElementById("autoCompleteInput")
   .addEventListener("input", function () {
     let query = this.value;
-    if (query.length > 2) {
+    if (query.length > 0) {
       fetchSuggestions(query);
+    } else {
+      let resultsDiv = document.getElementById("autoCompleteResults");
+      resultsDiv.innerHTML = "";
+      resultsDiv.style.display = "none";
     }
   });
 
 function fetchSuggestions(query) {
-  fetch(`https://api.datamuse.com/sug?s=${query}&topics=food`)
+  fetch(`https://api.datamuse.com/words?sp=${query}*&topics=food&ml=food&max=5`)
     .then((response) => response.json())
     .then((data) => {
       displaySuggestions(data);

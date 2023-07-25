@@ -1,4 +1,21 @@
 /* Global styles */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
 body {
   font-family: "Arial", sans-serif;
   padding: 30px;
@@ -6,7 +23,10 @@ body {
 
 h1 {
   color: #333;
-  margin-bottom: 30px;
+}
+
+h2 {
+  margin-bottom: 20px;
 }
 
 button {
@@ -37,6 +57,10 @@ input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
+}
+
+footer {
+  margin-top: 30px;
 }
 
 #autoCompleteResults {
