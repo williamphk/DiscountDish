@@ -2,7 +2,7 @@
 
 Ingredient Mixer is a web application that assists users in generating recipes based on the ingredients they have. Instead of trying to figure out what to cook, let Ingredient Mixer do the thinking for you!
 
-Live Preview: [http://3.137.155.153/](http://3.137.155.153/)
+Live Preview: [http://3.137.155.153/](http://3.137.155.153/) (hosted on AWS EC2)
 
 ## Features
 
