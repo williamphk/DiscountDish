@@ -73,7 +73,7 @@ router.post("/generate-recipe", async (req, res) => {
     recipe = convertToHtml(recipe);
     res.render("recipe", { recipe });
   } catch (error) {
-    res.render("error", { error });
+    res.render("error");
   }
 });
 
