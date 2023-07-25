@@ -108,7 +108,12 @@ div[class="grocery-item"] {
 }
 
 .recipe ul,
-.recipe ol {
+.recipe ol,
+.how-to-use ol {
   margin-left: 20px;
   margin-bottom: 20px;
+}
+
+.how-to-use li {
+  margin-bottom: 10px;
 }
