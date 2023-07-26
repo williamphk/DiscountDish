@@ -8,6 +8,7 @@ Live Preview: [http://recipe.williamphk.com/](http://recipe.williamphk.com/) (ho
 
 - **Grocery List Input**: Seamlessly add individual ingredients to your list. Our integrated autocompletion API assists you in this process, making it smooth and error-free.
 - **Recipe Generation**: Leveraging Google's Large Language Model - PaLM 2, DiscountDish can craft recipes tailored to the ingredients you've listed. Let our AI handle the brainstorming!
+- **Data Validation**: The data validation system, powered by express-validator, ensures the validity of your input. You can be sure that every ingredient you add is validated and error-free.
 - **Clean and Intuitive UI**: Easily navigate and understand the application.
 
 ## Installation
