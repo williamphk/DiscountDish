@@ -1,4 +1,4 @@
-//Loading
+// Loading
 const recipeBtn = document.querySelector(".recipe-btn");
 const loading = document.querySelector(".loading");
 if (recipeBtn) {
@@ -8,7 +8,7 @@ if (recipeBtn) {
   });
 }
 
-//AutoComplete
+// AutoComplete
 document
   .getElementById("autoCompleteInput")
   .addEventListener("input", function () {
@@ -44,5 +44,17 @@ function displaySuggestions(suggestions) {
     });
     resultsDiv.appendChild(div);
     resultsDiv.style.display = "block";
+  });
+}
+
+// Delete button
+const deleteBtn = document.querySelectorAll(".delete-btn");
+
+for (let i = 0; i < deleteBtn.length; i++) {
+  deleteBtn[i].addEventListener("click", function () {
+    const itemId = this.getAttribute("id");
+    fetch(`/delete-grocery-item/${itemId}`, {
+      method: "DELETE",
+    });
   });
 }

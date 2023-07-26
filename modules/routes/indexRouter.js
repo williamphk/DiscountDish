@@ -35,8 +35,25 @@ router.post("/add-grocery-item", validateIngredient, (req, res) => {
     return res.render("error", { errors: errors.array() });
   }
 
-  groceryItems.push(req.body.ingredient);
-  res.render("index", { groceryItems });
+  groceryItems.unshift(req.body.ingredient);
+  res.render("index", {
+    groceryItems,
+    message: "The item is add successfully",
+  });
+});
+
+router.post("/delete-grocery-item", (req, res) => {
+  if (groceryItems[req.body.itemId]) {
+    groceryItems.splice(req.body.itemId, 1);
+    res.render("index", {
+      groceryItems,
+      message: "The item is removed successfully",
+    });
+  } else {
+    res.render("error", {
+      errors: [{ msg: "Invalid item / the grocery list is empty." }],
+    });
+  }
 });
 
 router.post("/generate-recipe", async (req, res) => {

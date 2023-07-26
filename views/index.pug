@@ -9,11 +9,18 @@ block main-content
     button(type="submit") Add
     div#autoCompleteResults
   
-  if groceryItems
-    each item in groceryItems
-      div.grocery-item #{item}
+  div.grocery-item-wrapper
+    if groceryItems
+      each item, index in groceryItems
+        div.grocery-item 
+          div #{item}
+          form(action="/delete-grocery-item" method="POST")
+            input(type="hidden" name="itemId" value=index)
+            button.delete-btn(type="submit") Delete
   
   form(action="/generate-recipe" method="POST")
     button(type="submit" class="recipe-btn") Generate Recipe
-  
-  div(class="loading") Loading
+  br
+  p.message #{message}
+
+  div(class="loading") Loading...
