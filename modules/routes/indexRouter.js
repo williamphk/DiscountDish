@@ -38,7 +38,7 @@ router.post("/add-grocery-item", validateIngredient, (req, res) => {
   groceryItems.unshift(req.body.ingredient);
   res.render("index", {
     groceryItems,
-    message: "The item is add successfully",
+    message: "The item is added successfully",
   });
 });
 
