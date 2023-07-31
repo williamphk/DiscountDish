@@ -48,13 +48,13 @@ function displaySuggestions(suggestions) {
 }
 
 // Delete button
-const deleteBtn = document.querySelectorAll(".delete-btn");
+// const deleteBtn = document.querySelectorAll(".delete-btn");
 
-for (let i = 0; i < deleteBtn.length; i++) {
-  deleteBtn[i].addEventListener("click", function () {
-    const itemId = this.getAttribute("id");
-    fetch(`/delete-grocery-item/${itemId}`, {
-      method: "DELETE",
-    });
-  });
-}
+// for (let i = 0; i < deleteBtn.length; i++) {
+//   deleteBtn[i].addEventListener("click", function () {
+//     const itemId = this.getAttribute("id");
+//     fetch(`/delete-grocery-item/${itemId}`, {
+//       method: "DELETE",
+//     });
+//   });
+// }

@@ -5,10 +5,11 @@ const { body, validationResult } = require("express-validator");
 
 require("dotenv").config();
 
-let groceryItems = [];
-
 router.get("/", async (req, res) => {
-  res.render("index", { groceryItems });
+  if (!req.session.groceryItems) {
+    req.session.groceryItems = [];
+  }
+  res.render("index", { groceryItems: req.session.groceryItems });
 });
 
 router.get("/how-to-use", async (req, res) => {
@@ -35,18 +36,22 @@ router.post("/add-grocery-item", validateIngredient, (req, res) => {
     return res.render("error", { errors: errors.array() });
   }
 
-  groceryItems.unshift(req.body.ingredient);
+  if (!req.session.groceryItems) {
+    req.session.groceryItems = [];
+  }
+
+  req.session.groceryItems.unshift(req.body.ingredient);
   res.render("index", {
-    groceryItems,
+    groceryItems: req.session.groceryItems,
     message: "The item is added successfully",
   });
 });
 
 router.post("/delete-grocery-item", (req, res) => {
-  if (groceryItems[req.body.itemId]) {
-    groceryItems.splice(req.body.itemId, 1);
+  if (req.session.groceryItems[req.body.itemId]) {
+    req.session.groceryItems.splice(req.body.itemId, 1);
     res.render("index", {
-      groceryItems,
+      groceryItems: req.session.groceryItems,
       message: "The item is removed successfully",
     });
   } else {
@@ -57,14 +62,16 @@ router.post("/delete-grocery-item", (req, res) => {
 });
 
 router.post("/generate-recipe", async (req, res) => {
-  if (groceryItems.length === 0) {
+  if (req.session.groceryItems.length === 0) {
     return res.render("error", {
       errors: [{ msg: "Please add at least one grocery item." }],
     });
   }
 
-  const formattedGroceryItems = groceryItems.map((item) => `${item}`).join(",");
-  groceryItems = [];
+  const formattedGroceryItems = req.session.groceryItems
+    .map((item) => `${item}`)
+    .join(",");
+  req.session.groceryItems = [];
   try {
     let result = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
