@@ -15,11 +15,11 @@ Live Preview: [http://recipe.williamphk.com/](http://recipe.williamphk.com/) (ho
 
 1. Clone the repository:
 ```
-git clone https://github.com/williamphk/DiscountDish.git
+git clone https://github.com/williamphk/Ingredient-Mixer.git
 ```
 2. Navigate to the project directory:
 ```
-cd DiscountDish
+cd Ingredient-Mixer
 ```
 3. Install the necessary dependencies:
 ```
